@@ -1,0 +1,989 @@
+* {
+  font-family: "Inter", sans-serif;
+  /* font-weight: 500; */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+    margin-left: 200px;
+    margin-right: 200px;
+    background-color: #EEF2F7;
+}
+
+/* header */
+
+/* Main Container */
+.navbar-container {
+  display: flex;
+  width: 100%;
+  height: 70px;
+  margin-top: 15px;
+}
+
+/* Both Divs Equal Width */
+.logo-section,
+.nav-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+/* Left Side */
+.logo-section {
+  color: black;
+  /* padding-left: 2rem; */
+  font-weight: 1000;
+}
+
+/* Right Side */
+.nav-section {
+  justify-content: end;
+}
+
+/* Navbar Links */
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links li {
+  color: black;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links li:hover {
+  color: #9CA3AF;
+}
+
+/* hero section */
+
+.hero-container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  width: 100%;
+  min-height: 85vh;
+  background-color: #EEF2F7;
+}
+
+.hero-left,
+.hero-right {
+  flex: 1;
+  display: flex;
+}
+
+.hero-left {
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; 
+  padding-left: 0; 
+}
+
+.hero-left h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1.5rem;
+}
+
+.hero-left p {
+  font-size: 1.1rem;
+  color: #4B5563;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+  max-width: 520px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.btn-primary {
+  background-color: #111827;
+  color: #ffffff;
+  padding: 14px 34px;
+  font-size: 1rem;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #000000;
+}
+
+.btn-secondary {
+  background-color: #D1D5DB;
+  color: #111827;
+  padding: 14px 34px;
+  font-size: 1rem;
+  border-radius: 14px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #374151;
+  color: #ffffff;
+}
+
+.hero-right {
+  justify-content: flex-end; 
+  align-items: center;
+}
+
+.hero-right img {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  display: block;
+}
+
+/* footer   */
+.footer {
+  background-color: #0B0F14;
+  color: #D1D5DB;
+  padding: 80px 6%;
+  border-radius: 25px;
+  margin: 0;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.footer-col {
+  flex: 1;
+}
+
+/* Logo */
+.logo {
+  font-size: 28px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.footer-desc {
+  max-width: 260px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.social-icons i {
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.social-icons i:hover {
+  color: #ffffff;
+}
+
+/* Divider */
+.footer hr {
+  border: 0.5px solid #1F2937;
+  margin: 25px 0;
+}
+
+/* Contact */
+.contact-title {
+  font-size: 14px;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.contact-item span {
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.contact-item p {
+  margin: 5px 0 15px;
+  color: #9CA3AF;
+}
+
+/* Headings */
+.footer-heading {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+/* Product Items */
+.product-item {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.product-item img {
+  width: 80px;
+  height: 80px;
+  border-radius: 18px;
+  object-fit: cover;
+}
+
+.product-item p {
+  color: #ffffff;
+  margin: 0;
+}
+
+.product-item span {
+  color: #9CA3AF;
+  font-size: 14px;
+}
+
+/* Lists */
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.footer-col ul li:hover {
+  color: #ffffff;
+}
+
+/* Highlight link */
+.highlight {
+  color: #ffffff;
+  margin-top: 10px;
+}
+
+/* productpage */
+
+/* Main container */
+.product-page {
+  width: 100%;
+  padding: 60px 0; /* no left/right padding so it touches walls */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+/* Product card */
+.product-card {
+  background: #ffffff;
+  padding: 25px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+  transition: 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Image */
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Name */
+.product-card h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Price */
+.price {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+/* Button */
+.product-card button {
+  padding: 10px 25px;
+  border: none;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+.product-card button:hover {
+  background-color: #333;
+}
+
+/* Sold state */
+.sold-btn {
+  background-color: #9ca3af !important;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 1000px) {
+  .product-page {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-page {
+    grid-template-columns: 1fr;
+  }
+}
+
+.navLink{
+  text-decoration-line: none;
+}
+
+/* inbox */
+
+/* Main Layout */
+.inbox-container {
+  display: flex;
+  height: 85vh;
+  background: #f5f5f5;
+  border-radius: 20px;        
+  overflow: hidden;          
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* LEFT SIDE */
+.chat-list {
+  width: 25%;
+  background: white;
+  border-right: 1px solid #e5e5e5;
+  padding: 20px;
+}
+
+.chat-list h3 {
+  margin-bottom: 20px;
+}
+
+.chat-user {
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  transition: 0.2s ease;
+}
+
+.chat-user:hover {
+  background: #f0f0f0;
+}
+
+.chat-user.active {
+  background: black;
+  color: white;
+}
+
+/* RIGHT SIDE */
+.chat-window {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.chat-header {
+  padding: 20px;
+  background: white;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+/* Messages */
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.message {
+  padding: 10px 15px;
+  margin-bottom: 12px;
+  max-width: 60%;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.me {
+  background: black;
+  color: white;
+  margin-left: auto;
+}
+
+.them {
+  background: #e5e5e5;
+}
+
+/* Input */
+.chat-input {
+  display: flex;
+  padding: 15px;
+  background: white;
+  border-top: 1px solid #e5e5e5;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.chat-input button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* profile */
+
+/* Outer wrapper to match footer width */
+.profile-wrapper {
+  width: 90%;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 60px 0;
+  box-sizing: border-box;
+}
+
+/* Main layout */
+.profile-container {
+  display: flex;
+  gap: 40px;
+}
+
+/* LEFT CARD */
+.profile-card {
+  width: 30%;
+  background: white;
+  padding: 40px 30px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px auto;
+  background: black;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-card h2 {
+  margin-bottom: 10px;
+}
+
+.profile-card p {
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.signout-btn {
+  margin-top: 20px;
+  padding: 10px 25px;
+  border: none;
+  background: black;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.signout-btn:hover {
+  background: #333;
+}
+
+/* RIGHT SIDE */
+.profile-activity {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.activity-section {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.activity-section h3 {
+  margin-bottom: 20px;
+}
+
+.activity-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .profile-container {
+    flex-direction: column;
+  }
+
+  .profile-card,
+  .profile-activity {
+    width: 100%;
+  }
+}
+
+/* login */
+
+.login-container {
+  height: 75vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card {
+  width: 380px;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.login-card h2 {
+  margin-bottom: 30px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.login-card input:focus {
+  border-color: black;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.login-card button:hover {
+  background: #333;
+}
+
+.switch-text {
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.switch-text span {
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* signup */
+
+.signup-container {
+  height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signup-card {
+  width: 400px;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.signup-card h2 {
+  margin-bottom: 25px;
+}
+
+.signup-card input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.signup-card input:focus {
+  border-color: black;
+}
+
+.signup-card button {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.signup-card button:hover {
+  background: #333;
+}
+
+.switch-text {
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.switch-text span {
+  color: black;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* AddProduct page */
+
+.addproduct-container {
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.addproduct-card {
+  width: 420px;
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.addproduct-card h2 {
+  margin-bottom: 25px;
+}
+
+.addproduct-card input[type="text"],
+.addproduct-card input[type="number"],
+.addproduct-card input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.addproduct-card input:focus {
+  border-color: black;
+}
+
+.image-upload label {
+  display: block;
+  text-align: left;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.image-preview {
+  margin-bottom: 20px;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.addproduct-card button {
+  width: 100%;
+  padding: 12px;
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.addproduct-card button:hover {
+  background: #333;
+}
+
+/* about */
+
+/* ================= GLOBAL ================= */
+
+.about-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  padding: 60px 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ================= COMMON CARD STYLE ================= */
+
+.about-hero,
+.about-section,
+.value-card,
+.feature-card {
+  background: #ffffff;
+  color: #1f2937;
+  border-radius: 18px;
+  padding: 48px;
+  margin-bottom: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+}
+
+.about-hero:hover,
+.about-section:hover,
+.value-card:hover,
+.feature-card:hover {
+  transform: translateY(-6px);
+}
+
+/* ================= HERO SECTION ================= */
+
+.about-hero {
+  text-align: center;
+}
+
+.hero-title {
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+  color: #4b5563;
+  max-width: 700px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+/* Stats */
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #111827;
+  display: block;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 6px;
+}
+
+/* ================= TEXT SECTIONS ================= */
+
+.section-content h2,
+.section-header h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #111827;
+}
+
+.content-grid p,
+.section-header p,
+.value-card p,
+.feature-card p {
+  font-size: 1.05rem;
+  color: #4b5563;
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+
+/* ================= VALUES GRID ================= */
+
+.about-values {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.value-card {
+  text-align: center;
+}
+
+.value-icon {
+  font-size: 2.8rem;
+  margin-bottom: 16px;
+}
+
+.value-card h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ================= FEATURES SECTION ================= */
+
+.about-features {
+  padding-top: 20px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  text-align: center;
+}
+
+.feature-icon {
+  font-size: 2.8rem;
+  margin-bottom: 16px;
+}
+
+.feature-card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+  .about-hero,
+  .about-section,
+  .value-card,
+  .feature-card {
+    padding: 36px;
+  }
+
+  .hero-stats {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 0 16px;
+  }
+
+  .about-hero,
+  .about-section,
+  .value-card,
+  .feature-card {
+    padding: 28px;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-stats {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .about-hero,
+  .about-section,
+  .value-card,
+  .feature-card {
+    padding: 22px;
+  }
+}
+
+.highlight{
+  color: black;
+}
