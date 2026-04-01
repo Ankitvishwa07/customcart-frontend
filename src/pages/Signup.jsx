@@ -1,25 +1,39 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
-    password: ""
+    otp: "",
+    password: "",
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSendOTP = async () => {
+    await axios.post("/api/auth/send-otp", {
+      email: formData.email,
+    });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Account Created (Connect backend later)");
+
+    try {
+      const res = await axios.post("/api/auth/signup", formData);
+
+      localStorage.setItem("token", res.data.token);
+      alert("Signup successful 🎉");
+    } catch (err) {
+      alert(err.response?.data?.message || "Error");
+    }
   };
 
   return (
@@ -35,23 +49,27 @@ const Signup = () => {
             onChange={handleChange}
             required
           />
+          <div className="otp">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              required
+            />
 
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-            required
-          />
+            <button type="button" onClick={handleSendOTP}>
+              Send OTP
+            </button>
+          </div>
 
           <input
             type="text"
-            name="phone"
-            placeholder="Phone Number"
+            name="otp"
+            placeholder="OTP"
             onChange={handleChange}
             required
           />
-
           <input
             type="password"
             name="password"
@@ -63,11 +81,8 @@ const Signup = () => {
           <button type="submit">Sign Up</button>
         </form>
 
-        <p className="switch-text">
-          Already have an account? 
-          <NavLink to={"/login"}>
-            <span>Login</span>
-          </NavLink>
+        <p>
+          Already have an account? <NavLink to="/login">Login</NavLink>
         </p>
       </div>
     </div>

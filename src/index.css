@@ -987,3 +987,21 @@ body{
 .highlight{
   color: black;
 }
+
+.otp {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+}
+
+.otp > input {
+  flex: 3;
+  min-width: 0;   /* 🔥 prevents overflow issues */
+}
+
+.otp > button {
+  flex: 1;
+  min-width: 0;
+  height: 42px;
+  background-color: black;
+}
