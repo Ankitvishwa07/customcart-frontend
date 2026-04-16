@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -14,10 +15,15 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    alert("Login Successful (Connect backend later)");
+    try {
+      const res = await axios.post("/api/auth/login", formData);
+      localStorage.setItem("token", res.data.token);
+      alert("Login Successful 🎉");
+    } catch (err) {
+      alert(err.response?.data?.message || "Error logging in");
+    }
   };
 
   return (

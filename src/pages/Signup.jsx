@@ -18,9 +18,14 @@ const Signup = () => {
   };
 
   const handleSendOTP = async () => {
-    await axios.post("/api/auth/send-otp", {
-      email: formData.email,
-    });
+    try {
+      await axios.post("/api/auth/send-otp", {
+        email: formData.email,
+      });
+      alert("OTP sent successfully!");
+    } catch (err) {
+      alert(err.response?.data?.message || "Error sending OTP");
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -30,7 +35,7 @@ const Signup = () => {
       const res = await axios.post("/api/auth/signup", formData);
 
       localStorage.setItem("token", res.data.token);
-      alert("Signup successful 🎉");
+      alert("Signup successful");
     } catch (err) {
       alert(err.response?.data?.message || "Error");
     }
