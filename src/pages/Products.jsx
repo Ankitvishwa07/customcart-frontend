@@ -1,73 +1,70 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const productsData = [
-  {
-    id: 1,
-    name: "Wireless Headphones",
-    price: "$129",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
-  },
-  {
-    id: 2,
-    name: "Smart Watch",
-    price: "$249",
-    image: "https://images.unsplash.com/photo-1516570161787-2fd917215a3d"
-  },
-  {
-    id: 3,
-    name: "Gaming Mouse",
-    price: "$79",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
-  },
-  {
-    id: 4,
-    name: "Mechanical Keyboard",
-    price: "$149",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
-  },
-  {
-    id: 5,
-    name: "Bluetooth Speaker",
-    price: "$99",
-    image: "https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
-  },
-  {
-    id: 6,
-    name: "VR Headset",
-    price: "$499",
-    image: "https://images.unsplash.com/photo-1593508512255-86ab42a8e620"
-  }
-];
+const Products = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const ProductPage = () => {
-  const [products, setProducts] = useState(productsData);
+  const fetchProducts = async () => {
+    try {
+      const res = await fetch("/api/products");
+      const data = await res.json();
 
-  const handleBuy = (id) => {
-    const updatedProducts = products.map((product) =>
-      product.id === id ? { ...product, sold: true } : product
-    );
-    setProducts(updatedProducts);
+      if (!res.ok) throw new Error(data.message);
+
+      setProducts(data.products);
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  return (
-    <div className="product-page">
-      {products.map((product) => (
-        <div className="product-card" key={product.id}>
-          <img src={product.image} alt={product.name} />
-          <h3>{product.name}</h3>
-          <p className="price">{product.price}</p>
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
-          <button
-            className={product.sold ? "sold-btn" : ""}
-            onClick={() => handleBuy(product.id)}
-            disabled={product.sold}
-          >
-            {product.sold ? "Sold" : "Buy"}
-          </button>
-        </div>
-      ))}
+  if (loading) return <h2>Loading products...</h2>;
+
+  return (
+    <div className="products-container">
+      <h2>Explore Products</h2>
+
+      <div className="products-grid">
+        {products.length === 0 ? (
+          <p>No products available</p>
+        ) : (
+          products.map((product) => (
+            <div className="product-card" key={product._id}>
+              {/* Product Image */}
+              <img
+                src={product.productImage}
+                alt={product.productName}
+                className="product-image"
+              />
+
+              {/* Product Info */}
+              <h3>{product.productName}</h3>
+              <p>₹ {product.productPrice}</p>
+
+              {/* Status */}
+              <p
+                style={{
+                  color: product.productStatus === "sold" ? "red" : "green",
+                }}
+              >
+                {product.productStatus}
+              </p>
+
+              {/* Button (future use) */}
+              <button disabled={product.productStatus === "sold"}>
+                {product.productStatus === "sold" ? "Sold Out" : "Buy Now"}
+              </button>
+            </div>
+          ))
+        )}
+      </div>
     </div>
   );
 };
 
-export default ProductPage;
+export default Products;
