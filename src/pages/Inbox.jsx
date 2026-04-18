@@ -26,6 +26,7 @@ const Inbox = () => {
     axios.get("/api/auth/me", { headers }).then((res) => {
       setMyUserId(res.data.user._id);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ── Fetch all negotiations ──────────────────────────────────────────────
@@ -50,6 +51,7 @@ const Inbox = () => {
 
   useEffect(() => {
     fetchNegotiations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ── Open a chat & start polling messages ───────────────────────────────
@@ -102,9 +104,6 @@ const Inbox = () => {
   // ── Helpers ─────────────────────────────────────────────────────────────
   // Always convert to string before comparing MongoDB ObjectIds
   const toStr = (id) => id?.toString?.() ?? "";
-
-  const isSeller =
-    !!(activeNeg && myUserId && toStr(activeNeg.seller?._id) === toStr(myUserId));
 
   const otherPersonName = (neg) => {
     if (!myUserId || !neg?.seller?._id || !neg?.buyer?._id) return "...";

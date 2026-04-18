@@ -18,6 +18,7 @@ const Profile = () => {
   useEffect(() => {
     if (!token) { navigate("/login"); return; }
     fetchAll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const fetchAll = async () => {
