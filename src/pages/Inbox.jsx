@@ -1,96 +1,244 @@
-import { useState } from "react";
-
-const conversationsData = [
-  {
-    id: 1,
-    name: "Rahul Sharma",
-    messages: [
-      { sender: "them", text: "Is the VR headset available?" },
-      { sender: "me", text: "Yes, it is available." }
-    ]
-  },
-  {
-    id: 2,
-    name: "Priya Mehta",
-    messages: [
-      { sender: "them", text: "Can you reduce the price?" }
-    ]
-  }
-];
+import { useEffect, useState, useRef } from "react";
+import { useSearchParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Inbox = () => {
-  const [conversations, setConversations] = useState(conversationsData);
-  const [activeChat, setActiveChat] = useState(conversationsData[0]);
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const preselectedId = searchParams.get("negotiation");
+
+  const [negotiations, setNegotiations] = useState([]);
+  const [activeNeg, setActiveNeg] = useState(null);
+  const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [sending, setSending] = useState(false);
+  const [myUserId, setMyUserId] = useState(null);
+  const messagesEndRef = useRef(null);
+  const pollRef = useRef(null);
 
-  const sendMessage = () => {
-    if (!newMessage.trim()) return;
+  const token = localStorage.getItem("token");
+  const headers = { Authorization: `Bearer ${token}` };
 
-    const updatedConversations = conversations.map((chat) =>
-      chat.id === activeChat.id
-        ? {
-            ...chat,
-            messages: [...chat.messages, { sender: "me", text: newMessage }]
-          }
-        : chat
-    );
-
-    setConversations(updatedConversations);
-    setActiveChat({
-      ...activeChat,
-      messages: [...activeChat.messages, { sender: "me", text: newMessage }]
+  // ── Fetch logged-in user id ─────────────────────────────────────────────
+  useEffect(() => {
+    if (!token) { navigate("/login"); return; }
+    axios.get("/api/auth/me", { headers }).then((res) => {
+      setMyUserId(res.data.user._id);
     });
+  }, []);
 
-    setNewMessage("");
+  // ── Fetch all negotiations ──────────────────────────────────────────────
+  const fetchNegotiations = async () => {
+    try {
+      const res = await axios.get("/api/negotiations/my", { headers });
+      const list = res.data.negotiations;
+      setNegotiations(list);
+
+      if (preselectedId) {
+        const found = list.find((n) => n._id === preselectedId);
+        if (found) openChat(found);
+      } else if (list.length > 0) {
+        openChat(list[0]);
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
+
+  useEffect(() => {
+    fetchNegotiations();
+  }, []);
+
+  // ── Open a chat & start polling messages ───────────────────────────────
+  const openChat = async (neg) => {
+    setActiveNeg(neg);
+    await loadMessages(neg._id);
+    clearInterval(pollRef.current);
+    pollRef.current = setInterval(() => loadMessages(neg._id), 3000);
+  };
+
+  const loadMessages = async (negId) => {
+    try {
+      const res = await axios.get(`/api/negotiations/${negId}/messages`, { headers });
+      setMessages(res.data.negotiation.messages);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  // Cleanup polling on unmount
+  useEffect(() => () => clearInterval(pollRef.current), []);
+
+  // ── Send message ────────────────────────────────────────────────────────
+  const sendMessage = async () => {
+    if (!newMessage.trim() || !activeNeg) return;
+    setSending(true);
+    try {
+      const res = await axios.post(
+        `/api/negotiations/${activeNeg._id}/messages`,
+        { text: newMessage.trim() },
+        { headers }
+      );
+      setMessages(res.data.messages);
+      setNewMessage("");
+    } catch (err) {
+      alert(err.response?.data?.message || "Failed to send message.");
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  };
+
+  // ── Helpers ─────────────────────────────────────────────────────────────
+  // Always convert to string before comparing MongoDB ObjectIds
+  const toStr = (id) => id?.toString?.() ?? "";
+
+  const isSeller =
+    !!(activeNeg && myUserId && toStr(activeNeg.seller?._id) === toStr(myUserId));
+
+  const otherPersonName = (neg) => {
+    if (!myUserId || !neg?.seller?._id || !neg?.buyer?._id) return "...";
+    return toStr(neg.seller._id) === toStr(myUserId)
+      ? neg.buyer.name
+      : neg.seller.name;
+  };
+
+  const statusBadge = (status) => {
+    const map = {
+      open: { label: "Negotiating", color: "orange" },
+      accepted: { label: "Accepted ✅", color: "green" },
+      rejected: { label: "Rejected ❌", color: "red" },
+    };
+    return map[status] || { label: status, color: "gray" };
+  };
+
+  if (loading) return <div className="inbox-container"><p>Loading inbox...</p></div>;
+  if (!token) return null;
 
   return (
     <div className="inbox-container">
-
-      {/* LEFT SIDE - CHAT LIST */}
+      {/* ── LEFT: Chat List ─────────────────────────────────────────────── */}
       <div className="chat-list">
         <h3>Messages</h3>
-        {conversations.map((chat) => (
-          <div
-            key={chat.id}
-            className={`chat-user ${
-              activeChat.id === chat.id ? "active" : ""
-            }`}
-            onClick={() => setActiveChat(chat)}
-          >
-            {chat.name}
-          </div>
-        ))}
-      </div>
-
-      {/* RIGHT SIDE - CHAT WINDOW */}
-      <div className="chat-window">
-        <div className="chat-header">
-          <h3>{activeChat.name}</h3>
-        </div>
-
-        <div className="chat-messages">
-          {activeChat.messages.map((msg, index) => (
+        {negotiations.length === 0 && (
+          <p style={{ padding: "1rem", color: "#888", fontSize: "0.9rem" }}>
+            No conversations yet.
+          </p>
+        )}
+        {negotiations.map((neg) => {
+          const { label, color } = statusBadge(neg.status);
+          return (
             <div
-              key={index}
-              className={`message ${msg.sender === "me" ? "me" : "them"}`}
+              key={neg._id}
+              className={`chat-user ${activeNeg?._id === neg._id ? "active" : ""}`}
+              onClick={() => openChat(neg)}
             >
-              {msg.text}
+              <div style={{ fontWeight: "600" }}>{otherPersonName(neg)}</div>
+              <div style={{ fontSize: "0.8rem", color: "#555" }}>
+                {neg.product?.productName}
+              </div>
+              <div style={{ fontSize: "0.75rem", color }}>{label}</div>
             </div>
-          ))}
-        </div>
-
-        <div className="chat-input">
-          <input
-            type="text"
-            placeholder="Type a message..."
-            value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
-          />
-          <button onClick={sendMessage}>Send</button>
-        </div>
+          );
+        })}
       </div>
 
+      {/* ── RIGHT: Chat Window ──────────────────────────────────────────── */}
+      {activeNeg ? (
+        <div className="chat-window">
+          {/* Header */}
+          <div className="chat-header">
+            <div>
+              <h3>{otherPersonName(activeNeg)}</h3>
+              <span style={{ fontSize: "0.8rem", color: "#666" }}>
+                Re: {activeNeg.product?.productName} — ₹{activeNeg.product?.productPrice}
+              </span>
+            </div>
+            <span
+              style={{
+                fontSize: "0.8rem",
+                fontWeight: "600",
+                color: statusBadge(activeNeg.status).color,
+              }}
+            >
+              {statusBadge(activeNeg.status).label}
+            </span>
+          </div>
+
+          {/* Messages */}
+          <div className="chat-messages">
+            {messages.length === 0 && (
+              <p style={{ color: "#aaa", textAlign: "center", marginTop: "2rem" }}>
+                No messages yet. Start the conversation!
+              </p>
+            )}
+            {messages.map((msg, i) => {
+              // Use toString() on both sides — ObjectId !== string without it
+              const isMe =
+                toStr(msg.sender?._id) === toStr(myUserId) ||
+                toStr(msg.sender) === toStr(myUserId);
+              return (
+                <div key={i} className={`message ${isMe ? "me" : "them"}`}>
+                  {!isMe && (
+                    <div style={{ fontSize: "0.7rem", color: "#999", marginBottom: "2px" }}>
+                      {msg.sender?.name || ""}
+                    </div>
+                  )}
+                  {msg.text}
+                </div>
+              );
+            })}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input — hidden if negotiation is closed */}
+          {activeNeg.status === "open" && (
+            <div className="chat-input">
+              <input
+                type="text"
+                placeholder="Type a message..."
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                onKeyDown={handleKeyDown}
+              />
+              <button onClick={sendMessage} disabled={sending}>
+                {sending ? "..." : "Send"}
+              </button>
+            </div>
+          )}
+
+          {activeNeg.status !== "open" && (
+            <div
+              style={{
+                padding: "0.75rem 1rem",
+                textAlign: "center",
+                color: "#888",
+                borderTop: "1px solid #eee",
+                fontSize: "0.9rem",
+              }}
+            >
+              This negotiation is closed.
+            </div>
+          )}
+        </div>
+      ) : (
+        <div
+          className="chat-window"
+          style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+        >
+          <p style={{ color: "#aaa" }}>Select a conversation to start chatting.</p>
+        </div>
+      )}
     </div>
   );
 };

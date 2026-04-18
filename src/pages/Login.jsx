@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
-    password: ""
+    password: "",
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -21,6 +22,7 @@ const Login = () => {
       const res = await axios.post("/api/auth/login", formData);
       localStorage.setItem("token", res.data.token);
       alert("Login Successful 🎉");
+      navigate("/profile"); // redirect to profile after login
     } catch (err) {
       alert(err.response?.data?.message || "Error logging in");
     }
@@ -52,7 +54,7 @@ const Login = () => {
         </form>
 
         <p className="switch-text">
-          Don't have an account? 
+          Don&apos;t have an account?{" "}
           <NavLink to={"/signup"}>
             <span>Sign Up</span>
           </NavLink>
