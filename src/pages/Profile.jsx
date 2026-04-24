@@ -145,9 +145,9 @@ const Profile = () => {
               const { label, color } = statusLabel(item.productStatus);
               return (
                 <div className="activity-item" key={item._id}>
-                  <span>{item.productName}</span>
-                  <span>&#8377;{item.productPrice}</span>
-                  <span style={{ fontSize: "0.8rem", color, marginLeft: "8px" }}>{label}</span>
+                  <span style={{ flex: 1, textAlign: "left" }}>{item.productName}</span>
+                  <span style={{ flex: 1, textAlign: "center" }}>&#8377;{item.productPrice}</span>
+                  <span style={{ flex: 1, textAlign: "right", fontSize: "0.8rem", color }}>{label}</span>
                 </div>
               );
             })
@@ -162,8 +162,9 @@ const Profile = () => {
           ) : (
             purchasedProducts.map((item) => (
               <div className="activity-item" key={item._id}>
-                <span>{item.productName}</span>
-                <span>&#8377;{item.productPrice}</span>
+                <span style={{ flex: 1, textAlign: "left" }}>{item.productName}</span>
+                <span style={{ flex: 1, textAlign: "center" }}>&#8377;{item.productPrice}</span>
+                <span style={{ flex: 1 }}></span>
               </div>
             ))
           )}
