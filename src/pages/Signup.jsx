@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,6 +37,7 @@ const Signup = () => {
 
       localStorage.setItem("token", res.data.token);
       alert("Signup successful");
+      navigate("/");
     } catch (err) {
       alert(err.response?.data?.message || "Error");
     }
