@@ -1,101 +1,91 @@
-import cal from "../../assets/cal.png";
-import rounder from "../../assets/rounder.png";
-import scale from "../../assets/scale.png";
+import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="footer-container">
+      <div className="footer-inner">
 
-        {/* Column 1 */}
-        <div className="footer-col">
-          <h2 className="logo">Commerce X</h2>
-          <p className="footer-desc">
-            Lorem ipsum dolor sit amet consecte dol adipiscing elit aliquam maur.
+        {/* Brand column */}
+        <div className="footer-brand">
+          <div className="footer-logo">
+            <span className="footer-logo-icon">🛒</span>
+            CustomCart
+          </div>
+          <p className="footer-tagline">
+            India's campus marketplace for engineering students. Buy &amp; sell
+            textbooks, lab gear, electronics, and more — peer to peer.
           </p>
-
-          <div className="social-icons">
-            <i className="fa fa-facebook"></i>
-            <i className="fa fa-twitter"></i>
-            <i className="fa fa-instagram"></i>
-            <i className="fa fa-linkedin"></i>
-            <i className="fa fa-youtube-play"></i>
-          </div>
-
-          <hr />
-
-          <h3 className="contact-title">CONTACT US</h3>
-
-          <div className="contact-item">
-            <span>Email</span>
-            <p>contact@commerce.com</p>
-          </div>
-
-          <div className="contact-item">
-            <span>Phone</span>
-            <p>(414) 687 - 5892</p>
+          <div className="footer-social">
+            <a href="#" className="footer-social-link" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" className="footer-social-link" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+            </a>
+            <a href="#" className="footer-social-link" aria-label="Twitter">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+            </a>
+            <a href="#" className="footer-social-link" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
           </div>
         </div>
 
-        {/* Column 2 - Products */}
+        {/* Navigate column */}
         <div className="footer-col">
-          <h3 className="footer-heading">PRODUCT</h3>
-
-          <div className="product-item">
-            <img src={cal} alt="Backpack" />
-            <div>
-              <p>Backpack</p>
-              <span>$ 39.99 USD</span>
-            </div>
-          </div>
-
-          <div className="product-item">
-            <img src={rounder} alt="Keyboard" />
-            <div>
-              <p>Wireless Keyboard</p>
-              <span>$ 49.99 USD</span>
-            </div>
-          </div>
-
-          <div className="product-item">
-            <img src={scale} alt="VR" />
-            <div>
-              <p>VR Headset</p>
-              <span>$ 579.99 USD</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Column 3 - Menu */}
-        <div className="footer-col">
-          <h3 className="footer-heading">MENU</h3>
-          <ul>
-            <li>Home V1</li>
-            <li>Home V2</li>
-            <li>Home V3</li>
-            <li>About</li>
-            <li>Contact</li>
-            <li>Collection V1</li>
-            <li>Collection V2</li>
-            <li>Collection V3</li>
-            <li>Single Product</li>
+          <h4 className="footer-col-title">Navigate</h4>
+          <ul className="footer-links">
+            <li><NavLink to="/">Home</NavLink></li>
+            <li><NavLink to="/products">Browse Products</NavLink></li>
+            <li><NavLink to="/addproduct">Sell an Item</NavLink></li>
+            <li><NavLink to="/inbox">Messages</NavLink></li>
+            <li><NavLink to="/about">About Us</NavLink></li>
           </ul>
         </div>
 
-        {/* Column 4 - Utility */}
+        {/* Categories column */}
         <div className="footer-col">
-          <h3 className="footer-heading">UTILITY PAGES</h3>
-          <ul>
-            <li>Start here</li>
-            <li>Style guide</li>
-            <li>Password protected</li>
-            <li>404 Not found</li>
-            <li>Licenses</li>
-            <li>Changelog</li>
-            <li className="highlight">More Webflow Templates →</li>
+          <h4 className="footer-col-title">Categories</h4>
+          <ul className="footer-links">
+            <li><a href="/products">📚 Textbooks</a></li>
+            <li><a href="/products">🔬 Lab Equipment</a></li>
+            <li><a href="/products">🖥️ Electronics</a></li>
+            <li><a href="/products">📐 Drawing Tools</a></li>
+            <li><a href="/products">⚙️ Components &amp; Parts</a></li>
           </ul>
         </div>
 
+        {/* Account & Contact column */}
+        <div className="footer-col">
+          <h4 className="footer-col-title">Account</h4>
+          <ul className="footer-links">
+            <li><NavLink to="/login">Login</NavLink></li>
+            <li><NavLink to="/signup">Sign Up</NavLink></li>
+            <li><NavLink to="/profile">My Profile</NavLink></li>
+          </ul>
+
+          <h4 className="footer-col-title" style={{ marginTop: "28px" }}>Contact</h4>
+          <ul className="footer-links footer-contact">
+            <li>
+              <span className="footer-contact-icon">✉️</span>
+              <a href="mailto:support@customcart.in">support@customcart.in</a>
+            </li>
+            <li>
+              <span className="footer-contact-icon">📍</span>
+              <span>Mumbai, Maharashtra</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      {/* Bottom bar */}
+      <div className="footer-bottom">
+        <p>© {new Date().getFullYear()} CustomCart. Built by engineering students, for engineering students.</p>
+        <div className="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+        </div>
       </div>
     </footer>
   );
