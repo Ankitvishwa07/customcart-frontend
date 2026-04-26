@@ -9,7 +9,7 @@ const HeroSection = () => {
         <hr />
       </div>
       
-      {/* Left Div */}
+      {}
       <div className="hero-left">
         <h1>Buy & Sell Engineering Essentials with Ease</h1>
 
@@ -30,7 +30,7 @@ const HeroSection = () => {
         </div>
       </div>
 
-      {/* Right Div */}
+      {}
       <div className="hero-right">
         <img
           src={homeImage}

@@ -44,7 +44,7 @@ const About = () => {
   return (
     <div className="about-wrapper">
 
-      {/* Hero */}
+      {}
       <section className="cc-hero">
         <div className="cc-hero-badge">🎓 Made for Engineers, by Engineers</div>
         <h1 className="cc-hero-title">
@@ -74,7 +74,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Features */}
+      {}
       <section className="cc-features">
         <div className="cc-features-header">
           <h2 className="cc-section-title">Everything a student needs</h2>

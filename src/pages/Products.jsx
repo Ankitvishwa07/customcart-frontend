@@ -6,14 +6,14 @@ const Products = () => {
   const navigate = useNavigate();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [buyingId, setBuyingId] = useState(null); // track which product is being actioned
+  const [buyingId, setBuyingId] = useState(null); 
 
   const fetchProducts = async () => {
     try {
       const res = await fetch("/api/products");
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
-      // Only show available + under_negotiation products (hide sold ones)
+      
       setProducts(data.products.filter((p) => p.productStatus !== "sold"));
     } catch (error) {
       console.error(error.message);
@@ -43,7 +43,7 @@ const Products = () => {
       );
 
       const negotiationId = res.data.negotiation._id;
-      // Redirect to inbox with the negotiation pre-selected
+      
       navigate(`/inbox?negotiation=${negotiationId}`);
     } catch (err) {
       alert(err.response?.data?.message || "Could not start negotiation.");

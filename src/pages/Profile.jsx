@@ -18,7 +18,7 @@ const Profile = () => {
   useEffect(() => {
     if (!token) { navigate("/login"); return; }
     fetchAll();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
   const fetchAll = async () => {
@@ -100,7 +100,7 @@ const Profile = () => {
 
       <div className="profile-activity">
 
-        {/* SECTION 1: Incoming Negotiation Requests */}
+        {}
         <div className="activity-section">
           <h3>
             Negotiation Requests
@@ -135,7 +135,7 @@ const Profile = () => {
           )}
         </div>
 
-        {/* SECTION 2: Items You Listed */}
+        {}
         <div className="activity-section">
           <h3>Items You Listed ({listedProducts.length})</h3>
           {listedProducts.length === 0 ? (
@@ -154,7 +154,7 @@ const Profile = () => {
           )}
         </div>
 
-        {/* SECTION 3: Items You Bought */}
+        {}
         <div className="activity-section">
           <h3>Items You Bought ({purchasedProducts.length})</h3>
           {purchasedProducts.length === 0 ? (

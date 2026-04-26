@@ -48,7 +48,7 @@ const AddProduct = () => {
       try {
         result = JSON.parse(text);
       } catch {
-        console.error("Raw server response:", text); 
+        console.error("Raw server response:", text);
         throw new Error("Invalid server response");
       }
 
@@ -71,7 +71,7 @@ const AddProduct = () => {
         <h2>Upload Product</h2>
 
         <form onSubmit={handleSubmit}>
-          {/* Image Upload */}
+          { }
           <div className="image-upload">
             <label>Upload Product Image</label>
             <input
@@ -81,15 +81,9 @@ const AddProduct = () => {
               onChange={handleChange}
               required
             />
+            {preview && <img src={preview} alt="Preview" className="image-preview" />}
           </div>
 
-          {preview && (
-            <div className="image-preview">
-              <img src={preview} alt="Preview" />
-            </div>
-          )}
-
-          {/* Product Name */}
           <input
             type="text"
             name="productName"
@@ -99,7 +93,7 @@ const AddProduct = () => {
             required
           />
 
-          {/* Price */}
+          { }
           <input
             type="number"
             name="productPrice"

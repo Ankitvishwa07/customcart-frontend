@@ -20,16 +20,16 @@ const Inbox = () => {
   const token = localStorage.getItem("token");
   const headers = { Authorization: `Bearer ${token}` };
 
-  // ── Fetch logged-in user id ─────────────────────────────────────────────
+  
   useEffect(() => {
     if (!token) { navigate("/login"); return; }
     axios.get("/api/auth/me", { headers }).then((res) => {
       setMyUserId(res.data.user._id);
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
-  // ── Fetch all negotiations ──────────────────────────────────────────────
+  
   const fetchNegotiations = async () => {
     try {
       const res = await axios.get("/api/negotiations/my", { headers });
@@ -51,10 +51,10 @@ const Inbox = () => {
 
   useEffect(() => {
     fetchNegotiations();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    
   }, []);
 
-  // ── Open a chat & start polling messages ───────────────────────────────
+  
   const openChat = async (neg) => {
     setActiveNeg(neg);
     await loadMessages(neg._id);
@@ -75,10 +75,10 @@ const Inbox = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Cleanup polling on unmount
+  
   useEffect(() => () => clearInterval(pollRef.current), []);
 
-  // ── Send message ────────────────────────────────────────────────────────
+  
   const sendMessage = async () => {
     if (!newMessage.trim() || !activeNeg) return;
     setSending(true);
@@ -101,8 +101,8 @@ const Inbox = () => {
     if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   };
 
-  // ── Helpers ─────────────────────────────────────────────────────────────
-  // Always convert to string before comparing MongoDB ObjectIds
+  
+  
   const toStr = (id) => id?.toString?.() ?? "";
 
   const otherPersonName = (neg) => {
@@ -126,7 +126,7 @@ const Inbox = () => {
 
   return (
     <div className="inbox-container">
-      {/* ── LEFT: Chat List ─────────────────────────────────────────────── */}
+      {}
       <div className="chat-list">
         <h3>Messages</h3>
         {negotiations.length === 0 && (
@@ -152,10 +152,10 @@ const Inbox = () => {
         })}
       </div>
 
-      {/* ── RIGHT: Chat Window ──────────────────────────────────────────── */}
+      {}
       {activeNeg ? (
         <div className="chat-window">
-          {/* Header */}
+          {}
           <div className="chat-header">
             <div>
               <h3>{otherPersonName(activeNeg)}</h3>
@@ -174,7 +174,7 @@ const Inbox = () => {
             </span>
           </div>
 
-          {/* Messages */}
+          {}
           <div className="chat-messages">
             {messages.length === 0 && (
               <p style={{ color: "#aaa", textAlign: "center", marginTop: "2rem" }}>
@@ -182,7 +182,7 @@ const Inbox = () => {
               </p>
             )}
             {messages.map((msg, i) => {
-              // Use toString() on both sides — ObjectId !== string without it
+              
               const isMe =
                 toStr(msg.sender?._id) === toStr(myUserId) ||
                 toStr(msg.sender) === toStr(myUserId);
@@ -200,7 +200,7 @@ const Inbox = () => {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input — hidden if negotiation is closed */}
+          {}
           {activeNeg.status === "open" && (
             <div className="chat-input">
               <input

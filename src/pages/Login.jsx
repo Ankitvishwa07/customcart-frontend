@@ -22,7 +22,7 @@ const Login = () => {
       const res = await axios.post("/api/auth/login", formData);
       localStorage.setItem("token", res.data.token);
       alert("Login Successful 🎉");
-      navigate("/profile"); // redirect to profile after login
+      navigate("/profile"); 
     } catch (err) {
       alert(err.response?.data?.message || "Error logging in");
     }
