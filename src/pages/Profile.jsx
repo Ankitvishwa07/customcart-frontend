@@ -82,7 +82,7 @@ const Profile = () => {
 
   const statusLabel = (status) => {
     if (status === "sold") return { label: "Sold", color: "green" };
-    if (status === "under_negotiation") return { label: "Under Negotiation", color: "orange" };
+    if (status === "under_negotiation") return { label: "Under Negotiation", color: "" };
     return { label: "Available", color: "#888" };
   };
 
@@ -105,7 +105,7 @@ const Profile = () => {
           <h3>
             Negotiation Requests
             {incomingRequests.length > 0 && (
-              <span style={{ background: "orange", color: "#fff", borderRadius: "50%", padding: "2px 8px", fontSize: "0.75rem", marginLeft: "6px" }}>
+              <span style={{ background: "black", color: "#fff", borderRadius: "50%", padding: "2px 8px", fontSize: "0.75rem", marginLeft: "6px" }}>
                 {incomingRequests.length}
               </span>
             )}
@@ -117,16 +117,16 @@ const Profile = () => {
               <div key={neg._id} className="activity-item" style={{ flexDirection: "column", alignItems: "flex-start", gap: "0.5rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", width: "100%" }}>
                   <span><strong>{neg.product?.productName}</strong> &mdash; &#8377;{neg.product?.productPrice}</span>
-                  <span style={{ fontSize: "0.8rem", color: "#555" }}>Buyer: {neg.buyer?.name} ({neg.buyer?.email})</span>
+                  <span style={{ fontSize: "0.8rem", color: "#555" }}>Buyer: {neg.buyer?.name}</span>
                 </div>
                 <div style={{ display: "flex", gap: "0.5rem" }}>
-                  <button onClick={() => navigate(`/inbox?negotiation=${neg._id}`)} style={{ padding: "0.3rem 0.8rem", background: "#555", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem" }}>
+                  <button onClick={() => navigate(`/inbox?negotiation=${neg._id}`)} style={{ padding: "0.3rem 0.8rem", background: "black", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem" }}>
                     View Chat
                   </button>
-                  <button onClick={() => handleAccept(neg._id)} disabled={actionLoading === neg._id} style={{ padding: "0.3rem 0.8rem", background: "green", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem" }}>
+                  <button onClick={() => handleAccept(neg._id)} disabled={actionLoading === neg._id} style={{ padding: "0.3rem 0.8rem", background: "black", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem" }}>
                     {actionLoading === neg._id ? "..." : "Accept"}
                   </button>
-                  <button onClick={() => handleReject(neg._id)} disabled={actionLoading === neg._id} style={{ padding: "0.3rem 0.8rem", background: "crimson", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem" }}>
+                  <button onClick={() => handleReject(neg._id)} disabled={actionLoading === neg._id} style={{ padding: "0.3rem 0.8rem", background: "black", color: "#fff", border: "none", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem" }}>
                     {actionLoading === neg._id ? "..." : "Reject"}
                   </button>
                 </div>
