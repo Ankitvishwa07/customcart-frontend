@@ -21,8 +21,8 @@ const Login = () => {
     try {
       const res = await axios.post("/api/auth/login", formData);
       localStorage.setItem("token", res.data.token);
-      alert("Login Successful 🎉");
-      navigate("/profile"); 
+      alert("Login Successful!");
+      navigate("/profile");
     } catch (err) {
       alert(err.response?.data?.message || "Error logging in");
     }
@@ -32,7 +32,6 @@ const Login = () => {
     <div className="login-container">
       <div className="login-card">
         <h2>Login</h2>
-
         <form onSubmit={handleSubmit}>
           <input
             type="email"
@@ -41,7 +40,6 @@ const Login = () => {
             onChange={handleChange}
             required
           />
-
           <input
             type="password"
             name="password"
@@ -49,10 +47,8 @@ const Login = () => {
             onChange={handleChange}
             required
           />
-
           <button type="submit">Login</button>
         </form>
-
         <p className="switch-text">
           Don&apos;t have an account?{" "}
           <NavLink to={"/signup"}>

@@ -24,32 +24,32 @@ function App() {
         },
         {
           path: "/products",
-          element: <Products/>
+          element: <Products />,
         },
         {
           path: "/inbox",
-          element: <Inbox/>
+          element: <Inbox />,
         },
         {
           path: "/profile",
-          element: <Profile/>
+          element: <Profile />,
         },
         {
           path: "/signup",
-          element: <Signup/>
+          element: <Signup />,
         },
         {
           path: "/login",
-          element: <Login/>
+          element: <Login />,
         },
         {
           path: "/addproduct",
-          element: <AddProduct/>
+          element: <AddProduct />,
         },
         {
           path: "/about",
-          element: <About/>
-        }
+          element: <About />,
+        },
       ],
     },
   ]);
