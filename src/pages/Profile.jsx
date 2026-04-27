@@ -19,7 +19,7 @@ const Profile = () => {
     if (!token) { navigate("/login"); return; }
     fetchAll();
     
-  }, []);
+  }, );
 
   const fetchAll = async () => {
     try {
